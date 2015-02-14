@@ -6,7 +6,7 @@ public class InfraredSlave
 {
 	InfraredMaster IRMaster = new InfraredMaster();
 	AverageInfraredData averageInfraredLeft = new AverageInfraredData();
-	AverageInfraredData averageInfraredRight = new AverageInfraredData();
+	AverageInfraredData2 averageInfraredRight = new AverageInfraredData2();
 	int toleranceSet=(IRMaster.getDistanceLeft()-IRMaster.getDistanceRight());
 	public void startTestDash()
 	{
@@ -20,7 +20,7 @@ public class InfraredSlave
 	}
 	public int averageRight()
 	{
-		averageInfraredRight.add(IRMaster.getDistanceLeft());
+		averageInfraredRight.add(IRMaster.getDistanceRight());
 		return averageInfraredRight.getAverage();
 	}
 	public int driveAlign()
@@ -45,6 +45,14 @@ public class InfraredSlave
 			return 2;
 		}
 		return toleranceSet;
+	}
+	public int longDataRight()
+	{
+		return IRMaster.getDistanceRight();
+	}
+	public int longDataLeft()
+	{
+		return IRMaster.getDistanceLeft();
 	}
 	
 	

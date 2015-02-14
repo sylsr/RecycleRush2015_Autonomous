@@ -3,7 +3,7 @@ package org.usfirst.frc.team1891.robot;
 import java.lang.reflect.Array;
 import java.util.LinkedList;
 
-public class AverageInfraredData extends LinkedList<Integer>
+public class AverageInfraredData2 extends LinkedList<Integer>
 {
 	static int accumulator=0;
 	final int AVERAGE_MAX=10;

@@ -62,6 +62,8 @@ public class Robot extends IterativeRobot
     {
     	SmartDashboard.putNumber("Infrared Right",IRSlave.averageRight());
         SmartDashboard.putNumber("Infrared Left", IRSlave.averageLeft());
+        //SmartDashboard.putNumber("Infrared Long Right",IRSlave.longDataRight());
+        //SmartDashboard.putNumber("Infrared Long Left", IRSlave.longDataLeft());
         IRSlave.startTestDash();
         Scheduler.getInstance().run();
         SmartDashboard.putBoolean("Limit Test", jagLift.getForwardLimitOK()); //Top limit switch
