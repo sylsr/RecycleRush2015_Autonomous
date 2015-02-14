@@ -2,54 +2,45 @@ package org.usfirst.frc.team1891.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class InfraredSlave 
+public class InfraredSlave
 {
-	InfraredMaster IRMaster = new InfraredMaster();
+	InfraredMaster IRMaster;
+	public InfraredSlave()
+	{
+		IRMaster = new InfraredMaster();
+	}
 	AverageInfraredData averageInfraredLeft = new AverageInfraredData();
 	AverageInfraredData2 averageInfraredRight = new AverageInfraredData2();
-	int toleranceSet=(IRMaster.getDistanceLeft()-IRMaster.getDistanceRight());
-	public void startTestDash()
-	{
-		SmartDashboard.putNumber("Put Left", IRMaster.getDistanceLeft());
-		SmartDashboard.putNumber("Put Right", IRMaster.getDistanceRight());
-	}
+	/**
+	 * averageLeft() puts the LinkedList data in, averages it and then returns the average of 10 integers
+	 * @return
+	 */
 	public int averageLeft()
 	{
 		averageInfraredLeft.add(IRMaster.getDistanceLeft());
 		return averageInfraredLeft.getAverage();
 	}
+	/**
+	 *  averageRight() puts the LinkedList data in, averages it and then returns the average of 10 integers
+	 * @return
+	 */
 	public int averageRight()
 	{
 		averageInfraredRight.add(IRMaster.getDistanceRight());
 		return averageInfraredRight.getAverage();
 	}
-	public int driveAlign()
-	{
-		if(IRMaster.getDistanceLeft()>1000)
-		{
-			if(IRMaster.getDistanceRight()>1000)
-			{
-				return 3;
-			}
-		}
-		else if(toleranceSet<=100 || toleranceSet>=-100)
-		{
-			return 0;
-		}
-		else if (toleranceSet>100)
-		{
-			return 1;
-		}
-		else if(toleranceSet<-100)
-		{
-			return 2;
-		}
-		return toleranceSet;
-	}
+	/**
+	 * longDataRight() gets the data of the long IR sensor on the right
+	 * @return
+	 */
 	public int longDataRight()
 	{
 		return IRMaster.getDistanceRight();
 	}
+	/**
+	 * longDataLeft() gets the data of the long IR sensor on the left
+	 * @return
+	 */
 	public int longDataLeft()
 	{
 		return IRMaster.getDistanceLeft();

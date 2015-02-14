@@ -15,7 +15,6 @@ import org.usfirst.frc.team1891.robot.subsystems.ExampleSubsystem;
 public class Robot extends IterativeRobot
 {
 	ServoMaster testServo;
-	InfraredSlave IRSlave;
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	CANJaguar jagRightBack;
@@ -24,6 +23,7 @@ public class Robot extends IterativeRobot
 	CANJaguar jagRightFront;
 	CANJaguar jagLift;
 	LimitSwitch liftStop;
+	DriveAlign boxAlign;
     Command autonomousCommand;
 
     /**
@@ -33,7 +33,6 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
     	testServo = new ServoMaster();
-    	IRSlave = new InfraredSlave();
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
@@ -43,6 +42,7 @@ public class Robot extends IterativeRobot
         jagLeftFront= new CANJaguar(4);
         jagLift=new CANJaguar(5);
         liftStop = new LimitSwitch();
+        boxAlign= new DriveAlign();
     }
 	
 	public void disabledPeriodic() 
@@ -60,14 +60,10 @@ public class Robot extends IterativeRobot
      */
     public void autonomousPeriodic()
     {
-    	SmartDashboard.putNumber("Infrared Right",IRSlave.averageRight());
-        SmartDashboard.putNumber("Infrared Left", IRSlave.averageLeft());
-        //SmartDashboard.putNumber("Infrared Long Right",IRSlave.longDataRight());
-        //SmartDashboard.putNumber("Infrared Long Left", IRSlave.longDataLeft());
-        IRSlave.startTestDash();
+    	boxAlign.startDash();
         Scheduler.getInstance().run();
         SmartDashboard.putBoolean("Limit Test", jagLift.getForwardLimitOK()); //Top limit switch
-        /*switch(IRSlave.driveAlign())
+        /*switch(boxAlign.driveAlign())
         {
         	case 0:
         		jagRightBack.set(-0.1);
