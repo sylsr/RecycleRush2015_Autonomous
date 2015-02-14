@@ -17,13 +17,9 @@ public class Robot extends IterativeRobot
 	ServoMaster testServo;
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
-	CANJaguar jagRightBack;
-	CANJaguar jagLeftFront;
-	CANJaguar jagLeftBack;
-	CANJaguar jagRightFront;
-	CANJaguar jagLift;
 	LimitSwitch liftStop;
 	DriveAlign boxAlign;
+	JagMaster controlJag;
     Command autonomousCommand;
 
     /**
@@ -36,13 +32,9 @@ public class Robot extends IterativeRobot
 		oi = new OI();
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
-        jagRightBack= new CANJaguar(2);
-        jagRightFront= new CANJaguar(6);
-        jagLeftBack= new CANJaguar(3);
-        jagLeftFront= new CANJaguar(4);
-        jagLift=new CANJaguar(5);
         liftStop = new LimitSwitch();
         boxAlign= new DriveAlign();
+        controlJag=new JagMaster();
     }
 	
 	public void disabledPeriodic() 
@@ -62,37 +54,31 @@ public class Robot extends IterativeRobot
     {
     	boxAlign.startDash();
         Scheduler.getInstance().run();
-        SmartDashboard.putBoolean("Limit Test", jagLift.getForwardLimitOK()); //Top limit switch
-        /*switch(boxAlign.driveAlign())
+        //SmartDashboard.putBoolean("Limit Test", jagLift.getForwardLimitOK()); //Top limit switch
+        switch(boxAlign.driveAlign())
         {
         	case 0:
-        		jagRightBack.set(-0.1);
-        		jagRightFront.set(-0.1);
-        		jagLeftBack.set(0.1);
-        		jagLeftFront.set(0.1);
+        		controlJag.moveForward();
         		break;
         	case 1:
-        		jagRightBack.set(-0.15);
-        		jagRightFront.set(-0.15);
-        		jagLeftBack.set(0.1);
-        		jagLeftFront.set(0.1);
-        		break;
-        	case 2:
-        		jagRightBack.set(-0.1);
-        		jagRightFront.set(-0.1);
-        		jagLeftBack.set(0.15);
-        		jagLeftFront.set(0.15);
-        		break;
-        	case 3:
-        		jagRightBack.set(0.0);
-        		jagRightFront.set(0.0);
-        		jagLeftBack.set(-0.0);
-        		jagLeftFront.set(-0.0);
-        		jagLift.set(1);
-        		break;
+        	     switch(boxAlign.centerRobot())
+        	     {
+        		      case 0:
+	        		      controlJag.horizontalLeft();
+	        		      break;
+        		      case 1:
+	        		      controlJag.horizontalRight();
+	        		      break;
+        		      default:
+        		    	  controlJag.liftDown();
+	        		      controlJag.stop();
+	        		      break;
+        	      }
+        	        
         	default:
         		break;
-        }*/
+        }
+       
 
     }
 

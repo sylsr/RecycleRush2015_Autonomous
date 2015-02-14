@@ -13,20 +13,12 @@ public class DriveAlign extends InfraredSlave
 		{
 			if(super.averageRight()>1000)
 			{
-				return 3;
+				return 1;
 			}
 		}
 		else if(toleranceSet<=100 || toleranceSet>=-100)
 		{
 			return 0;
-		}
-		else if (toleranceSet>100)
-		{
-			return 1;
-		}
-		else if(toleranceSet<-100)
-		{
-			return 2;
 		}
 		return toleranceSet;
 	}
@@ -44,7 +36,26 @@ public class DriveAlign extends InfraredSlave
 		SmartDashboard.putNumber("Average IR Right", super.averageRight());
         SmartDashboard.putNumber("Infrared Long Right",super.longDataRight());
         SmartDashboard.putNumber("Infrared Long Left", super.longDataLeft());
+        super.startSideDashIR();
 	}
-	
+	/**
+	 * Center robot onto box for lifting mech to work
+	 */
+	public int centerRobot()
+	{
+		int rightSide=super.sideIRDataRight();
+		int leftSide=super.sideIRDataLeft();
+		int toleranceSet=(rightSide-leftSide);
+		if(toleranceSet>125)
+		{
+			return 0;
+		}
+		else if(toleranceSet<-125)
+		{
+			return 1;
+		}
+		else
+			return 2;
+	}
 }
 
