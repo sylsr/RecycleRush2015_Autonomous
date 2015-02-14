@@ -45,6 +45,19 @@ public class InfraredSlave
 	{
 		return IRMaster.getDistanceLeft();
 	}
+	public int sideIRDataRight()
+	{
+		return IRMaster.getSideRightDistance();
+	}
+	public int sideIRDataLeft()
+	{
+		return IRMaster.getSideLeftDistance();
+	}
+	public void startSideDashIR()
+	{
+		SmartDashboard.putNumber("Right side", IRMaster.getSideRightDistance());
+		SmartDashboard.putNumber("Left side", IRMaster.getSideLeftDistance());
+	}
 	
 	
 }
