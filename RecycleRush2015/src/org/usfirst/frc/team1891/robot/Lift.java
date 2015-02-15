@@ -4,30 +4,50 @@ import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-public class Lift extends CANJaguar
+public class Lift
 {
-	public Lift(int ID) 
+	double plo;
+	double pup = plo + 4.732;
+	CANJaguar jagLift;
+	public Lift()
 	{
-		super(ID);
-	
+		jagLift = new CANJaguar(5);
 	}
-	public  void lift()
+	public double Init()
 	{
-		SmartDashboard.putNumber("Lift Position", getPosition());
-		if (getForwardLimitOK() == false)
+		if (jagLift.getForwardLimitOK() != false)
 		{
-			set(5);
+			jagLift.enableControl();
+			jagLift.set(25);
 		}
 		else
-			set(0);
+		{
+		jagLift.setPositionMode(CANJaguar.kQuadEncoder, 1000, plo, 0.5, 0.5);
+		jagLift.getP();
+		}
+		
+		
+		return Math.abs(plo);
+			
+	}
+	public void lift()
+	{
+	
+		
+		if (jagLift.getForwardLimitOK() == false)
+		{
+			jagLift.set(-25);
+		}
+		else
+			jagLift.set(25);
 	}
 	public void lower()
 	{
-		if (getReverseLimitOK() == false)
+		if (jagLift.getReverseLimitOK() == false)
 		{
-			set(5);
+			jagLift.set(25);
 		}
 		else 
-			set(0);
+			jagLift.set(-25);
 	}
 }
