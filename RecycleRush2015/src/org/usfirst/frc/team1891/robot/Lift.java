@@ -23,7 +23,7 @@ public class Lift
 		else
 		{
 		jagLift.setPositionMode(CANJaguar.kQuadEncoder, 1000, plo, 0.5, 0.5);
-		jagLift.getP();
+		jagLift.getPosition();
 		}
 		
 		
@@ -49,5 +49,10 @@ public class Lift
 		}
 		else 
 			jagLift.set(-25);
+	}
+	public void dash()
+	{
+		SmartDashboard.getBoolean("Bottom Limit Switch", jagLift.getReverseLimitOK());
+		
 	}
 }

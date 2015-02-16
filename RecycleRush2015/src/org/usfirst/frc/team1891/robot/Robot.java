@@ -21,6 +21,7 @@ public class Robot extends IterativeRobot
 	DriveAlign boxAlign;
 	JagMaster controlJag;
     Command autonomousCommand;
+    Lift lifter;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot
         liftStop = new LimitSwitch();
         boxAlign= new DriveAlign();
         controlJag=new JagMaster();
+        Lift lifter = new Lift();
     }
 	
 	public void disabledPeriodic() 
@@ -52,10 +54,11 @@ public class Robot extends IterativeRobot
      */
     public void autonomousPeriodic()
     {
-    	boxAlign.startDash();
+    	//boxAlign.startDash();
         Scheduler.getInstance().run();
-        //SmartDashboard.putBoolean("Limit Test", jagLift.getForwardLimitOK()); //Top limit switch
-        switch(boxAlign.driveAlign())
+        lifter.dash();
+        
+        /*switch(boxAlign.driveAlign())
         {
         	case 0:
         		controlJag.moveForward();
@@ -77,7 +80,7 @@ public class Robot extends IterativeRobot
         	        
         	default:
         		break;
-        }
+        }*/
        
 
     }
