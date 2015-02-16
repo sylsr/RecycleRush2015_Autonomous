@@ -8,14 +8,12 @@ public class JagMaster
 	CANJaguar jagLeftFront;
 	CANJaguar jagLeftBack;
 	CANJaguar jagRightFront;
-	CANJaguar jagLift;
 	public JagMaster()
 	{
 		jagRightBack= new CANJaguar(2);
         jagRightFront= new CANJaguar(6);
         jagLeftBack= new CANJaguar(3);
         jagLeftFront= new CANJaguar(4);
-        jagLift=new CANJaguar(5);
 	}
 	/**
 	 * Move the robot forward if the sensors at the back are not getting to much resistance
@@ -61,9 +59,5 @@ public class JagMaster
 		jagRightFront.set(-0.2);
 		jagLeftBack.set(0.2);
 		jagLeftFront.set(-0.2);
-	}
-	public void liftDown()
-	{
-		jagLift.set(-1);
 	}
 }

@@ -8,6 +8,7 @@ public class Lift
 {
 	double plo;
 	double pup = plo + 4.732;
+	int hitBottomLimit=0;
 	CANJaguar jagLift;
 	public Lift()
 	{
@@ -15,15 +16,16 @@ public class Lift
 	}
 	public double Init()
 	{
-		if (jagLift.getForwardLimitOK() != false)
+		if (jagLift.getReverseLimitOK() != false && hitBottomLimit==0)
 		{
 			jagLift.enableControl();
-			jagLift.set(25);
+			jagLift.set(-1);
+			hitBottomLimit++;
 		}
 		else
 		{
 		jagLift.setPositionMode(CANJaguar.kQuadEncoder, 1000, plo, 0.5, 0.5);
-		jagLift.getP();
+		jagLift.getPosition();
 		}
 		
 		
@@ -32,14 +34,7 @@ public class Lift
 	}
 	public void lift()
 	{
-	
-		
-		if (jagLift.getForwardLimitOK() == false)
-		{
-			jagLift.set(-25);
-		}
-		else
-			jagLift.set(25);
+		jagLift.set(0.5);
 	}
 	public void lower()
 	{
@@ -49,5 +44,9 @@ public class Lift
 		}
 		else 
 			jagLift.set(-25);
+	}
+	public void startLiftDash()
+	{
+		SmartDashboard.putBoolean("LimitSwitch", jagLift.getReverseLimitOK());
 	}
 }
