@@ -2,11 +2,13 @@
 package org.usfirst.frc.team1891.robot;
 
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 import org.usfirst.frc.team1891.robot.commands.ExampleCommand;
 import org.usfirst.frc.team1891.robot.subsystems.ExampleSubsystem;
@@ -38,6 +40,9 @@ public class Robot extends IterativeRobot
         boxAlign= new DriveAlign();
         controlJag=new JagMaster();
         jagLift= new Lift();
+        /*CameraServer server = CameraServer.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture("cam5");*/
     }
 	
 	public void disabledPeriodic() 
@@ -55,44 +60,36 @@ public class Robot extends IterativeRobot
      */
     public void autonomousPeriodic()
     {
-    	boxAlign.startDash();
+    	controlJag.moveForward();
+    	/*boxAlign.startDash();
         Scheduler.getInstance().run();
+        //jagLift.set(1);
         jagLift.startLiftDash();
-        jagLift.Init();
-        /*switch(boxAlign.driveAlign())
+        switch(boxAlign.driveAlign())
         {
         	case 0:
-        		if(!isLifting)
-        		{
-        			controlJag.moveForward();
-        		}
+        		controlJag.moveForward();
         		break;
         	case 1:
         	     switch(boxAlign.centerRobot())
         	     {
         		      case 0:
-        		    	  if(!isLifting)
-        	        		{
-        		    		  controlJag.horizontalLeft();
-        	        		}
+        		    	  controlJag.horizontalLeft();
 	        		      break;
         		      case 1:
-        		    	  if(!isLifting)
-        	        		{
-        		    		  controlJag.horizontalRight();
-        	        		}
+        		    	  controlJag.horizontalRight();
 	        		      break;
         		      default:
         		    	  jagLift.lift();
 	        		      controlJag.stop();
-	        		      isLifting=false;
+	        		      isLifting=true;
 	        		      break;
         	      }
         	        
         	default:
         		break;
-        }*/
-       
+        }
+       */
 
     }
 

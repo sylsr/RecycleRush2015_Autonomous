@@ -16,6 +16,9 @@ public class JagMaster
         jagLeftFront= new CANJaguar(4);
 	}
 	/**
+	 * Initializes jags in 
+	 */
+	/**
 	 * Move the robot forward if the sensors at the back are not getting to much resistance
 	 */
 	public void moveForward()

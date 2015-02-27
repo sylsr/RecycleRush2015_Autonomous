@@ -19,7 +19,7 @@ public class Lift
 		if (jagLift.getReverseLimitOK() != false && hitBottomLimit==0)
 		{
 			jagLift.enableControl();
-			jagLift.set(-1);
+			jagLift.set(-0.5);
 			hitBottomLimit++;
 		}
 		else
@@ -48,5 +48,10 @@ public class Lift
 	public void startLiftDash()
 	{
 		SmartDashboard.putBoolean("LimitSwitch", jagLift.getReverseLimitOK());
+		SmartDashboard.putNumber("Lift P val" , jagLift.getPosition());
+	}
+	public void set(int speed)
+	{
+		jagLift.set(speed);
 	}
 }
